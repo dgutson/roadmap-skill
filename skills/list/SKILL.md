@@ -31,8 +31,15 @@ intended sequence of work.
 
 Then, below the table, name the next item: the first one whose **Blocked-by** entries are
 empty or name only IDs absent from the file (absent means finished and retired to
-HISTORY.md). If every item is blocked, say so plainly and name what they're waiting on —
-that's a stalled roadmap, and it's worth surfacing rather than papering over.
+HISTORY.md).
+
+Name exactly one. Other items are often unblocked too, and it's useful to mention them —
+but as "also unblocked", never as co-equal next. File order is the roadmap's priority
+decision, so presenting two items as equally next quietly discards it and hands the choice
+back to whoever is reading, which is the guesswork this whole format exists to remove.
+
+If every item is blocked, say so plainly and name what they're waiting on — that's a
+stalled roadmap, and it's worth surfacing rather than papering over.
 
 ## Keeping the table readable
 
