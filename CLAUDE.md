@@ -1,8 +1,30 @@
 # roadmap-skill
 
 A Claude Code plugin providing `/roadmap:create`, `/roadmap:list`, and `/roadmap:summary`.
-Three `SKILL.md` files and a manifest — no scripts, hooks, or MCP servers. Keep it that
-way unless there is a compelling reason not to.
+
+## Hard constraint: no executable code
+
+This plugin ships **three `SKILL.md` files and two JSON manifests. Nothing else.** No
+scripts, no hooks, no MCP servers, no `scripts/` directory, no executable of any kind, in
+any language, at any size, however convenient.
+
+Do not add code here on your own judgement — not "just a small helper", not "only for
+tests", not because a script would be more reliable than prose instructions. If you believe
+code is genuinely required, stop and ask Daniel for explicit approval, and proceed only if
+he gives it. He set this constraint deliberately and has had to restate it.
+
+The reasons, so this reads as a design property rather than an arbitrary rule:
+
+- **It cannot fail at runtime.** There is no process to crash, no dependency to go missing,
+  no interpreter version to be wrong. The failure modes of a markdown file are exhaustively
+  "someone wrote bad instructions".
+- **It installs anywhere** — no network, no auth, no toolchain, no permission prompts.
+- **It stays auditable by reading it.** Anyone can review the whole plugin in ten minutes
+  and know exactly what it will do to their repo.
+
+Using an external tool during development is a different thing from vendoring one. `git`,
+`gh`, and skill-creator's eval scripts all get invoked from their own locations, and that is
+fine. Nothing they produce is committed here except markdown.
 
 ## Roadmap
 

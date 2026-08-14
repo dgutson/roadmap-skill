@@ -25,7 +25,7 @@ Next ID: R-006
 ### R-002 — Run trigger evals for the `list` and `summary` descriptions
 
 - **Category:** Testing
-- **What:** Build roughly 20 realistic queries, half should-trigger and half near-miss, and run skill-creator's `scripts/run_loop.py` against `skills/list` and `skills/summary` to measure and improve how reliably each description fires.
+- **What:** Build roughly 20 realistic queries, half should-trigger and half near-miss, and measure how reliably the `list` and `summary` descriptions fire. The measuring instrument is `scripts/run_loop.py` belonging to the **separately-installed skill-creator plugin**, invoked from that plugin's own directory. It is an external development tool, exactly like `git` or `gh`: nothing from it is copied into this repo, and no script is added here — see the no-executable-code constraint in `CLAUDE.md`. Keep the query set in a scratch directory, not in the repo.
 - **Why:** A skill that never fires fails silently. These two read a file rather than the conversation, so a single-turn harness can evaluate them honestly — unlike `create` (see R-005). Their descriptions claim to trigger on unprompted phrasings like "what's left to do", "where were we", and "what's the big picture", none of which has been measured. Run the eval inside a repo that already contains a `ROADMAP.md`, otherwise the queries have nothing to refer to and the same contextless-harness confound returns.
 - **Outcome:** Measured trigger rates on a held-out query set for both skills, with each description replaced by whichever variant scores best on held-out data rather than on the training split.
 - **Blocked-by:** —
