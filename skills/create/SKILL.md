@@ -107,6 +107,13 @@ three weeks later.
 
 Keep this to one round. It's a check, not an interview.
 
+If the session is **non-interactive** — `claude -p`, a cron run, a subagent, anything
+where your reply won't reach someone who can answer — don't stop for confirmation. Write
+the files, then show the same list in your final report so it can be corrected afterward.
+A roadmap that was never written isn't safer than one carrying a wrong item: the wrong
+item is visible and editable, whereas the missing file silently loses everything the
+conversation established.
+
 ## Step 6 — Write the files
 
 `ROADMAP.md`:
