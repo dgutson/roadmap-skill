@@ -98,23 +98,17 @@ Order carries real weight here, because the rule for picking work is *"the first
 the file whose Blocked-by list is empty or names only absent IDs."* File order is
 therefore the priority decision, not decoration — arrange it deliberately.
 
-## Step 5 — Confirm before writing
+## Step 5 — Write the files
 
-Show the user a compact numbered list — one line per item, `ID — title (category)` — and
-ask whether anything is missing, wrong, or shouldn't be there. Conversation-mining is
-lossy in both directions, and this is far cheaper than having them discover a bad item
-three weeks later.
+Write them now. Do **not** stop first to ask whether the item list is right — you'll ask
+immediately afterward, in Step 8, once the work is safely on disk.
 
-Keep this to one round. It's a check, not an interview.
-
-If the session is **non-interactive** — `claude -p`, a cron run, a subagent, anything
-where your reply won't reach someone who can answer — don't stop for confirmation. Write
-the files, then show the same list in your final report so it can be corrected afterward.
-A roadmap that was never written isn't safer than one carrying a wrong item: the wrong
-item is visible and editable, whereas the missing file silently loses everything the
-conversation established.
-
-## Step 6 — Write the files
+That ordering is deliberate. Conversation-mining is lossy in both directions, so the list
+does need checking — but a roadmap is an ordinary file in a repo, and correcting one is a
+two-line edit. Gating the write on an answer buys nothing and risks everything: if the
+reply never arrives, because the session is headless, or a subagent, or the user simply
+walks away, then all the work this conversation established is silently lost. A wrong
+item is visible and editable; a file that was never written is neither.
 
 `ROADMAP.md`:
 
@@ -156,7 +150,7 @@ Next ID: R-004
 > Completed roadmap items, newest first.
 ```
 
-## Step 7 — Install the standing rule
+## Step 6 — Install the standing rule
 
 The roadmap only stays true if it's updated as work lands, and a skill can't watch for
 that on its own. Append this to the repo's `CLAUDE.md` (creating the file if absent), so
@@ -177,14 +171,25 @@ This repo is governed by ROADMAP.md (pending work) and HISTORY.md (completed wor
   "done" means here.
 ```
 
-If an equivalent block is already present, leave it alone. Either way, tell the user in
-your summary that you touched CLAUDE.md — editing a file that shapes every future session
-should never be a silent side effect.
+If an equivalent block is already present, leave it alone.
 
-## Step 8 — Report
+## Step 7 — Report, and invite correction
 
 State how many items you captured, which one is ready to start first, and which files you
-created or modified. Then stop; don't start working the roadmap unless asked.
+created or modified — naming CLAUDE.md explicitly, since editing a file that shapes every
+future session should never be a silent side effect.
+
+Then show the compact list, one line per item as `ID — title (category)`, and ask whether
+anything is missing, wrong, or shouldn't have been included. Call out anything you
+deliberately left out as speculation, so a real commitment you misjudged gets a chance to
+come back.
+
+This is the check that Step 5 deferred, and it costs nothing now: if the answer is "drop
+R-005", that's an edit to a file that already exists. Keep it to one round — it's a check,
+not an interview. If no answer comes, the roadmap is still on disk and still correct about
+everything else.
+
+Then stop; don't start working the roadmap unless asked.
 
 ## Retiring an item later
 
