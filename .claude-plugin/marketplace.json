@@ -1,0 +1,15 @@
+{
+  "name": "roadmap-skill-marketplace",
+  "description": "Marketplace hosting the roadmap plugin.",
+  "owner": {
+    "name": "Daniel Gutson",
+    "url": "https://github.com/dgutson"
+  },
+  "plugins": [
+    {
+      "name": "roadmap",
+      "source": ".",
+      "description": "Keeps a repo's pending work in a slim, dependency-ordered ROADMAP.md and retires finished work to HISTORY.md, so Claude Code can always pick the next thing to build without guessing."
+    }
+  ]
+}
