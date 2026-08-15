@@ -1,6 +1,7 @@
 ---
 name: list
 description: Render the pending items in ROADMAP.md as compact tables of item, what, and outcome — grouped Now / Next / Later — and name which single item is ready to be started next. Strictly read-only; it never edits the roadmap. Use whenever the user runs /roadmap:list, or asks "what's on the roadmap", "what's left to do", "what should I work on next", "where were we", "what's still open here", or otherwise wants to pick up outstanding work without digging through code or old conversations. Prefer this over dumping ROADMAP.md into the conversation, since the raw file carries dependency bookkeeping the reader does not need to wade through.
+effort: high
 ---
 
 # List roadmap items

@@ -1,6 +1,7 @@
 ---
 name: summary
 description: Roll ROADMAP.md up into a category-level table — each category, the outcome reached once that whole category is done, and how many items remain in it — followed by the Now / Next / Later distribution. Strictly read-only. Use whenever the user runs /roadmap:summary, or asks "what's the big picture", "give me the high-level view", "what are the major areas still outstanding", "how much is left overall", "summarize the roadmap", or wants something stakeholder-facing rather than a task list. Reach for this instead of /roadmap:list once the roadmap is long enough that individual items obscure the shape of the remaining work.
+effort: high
 ---
 
 # Summarize the roadmap
