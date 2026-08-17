@@ -26,24 +26,27 @@ intended sequence.
 ```markdown
 ### Now
 
-| Item | What | Outcome |
-|---|---|---|
-| R-001 | Chunked `Reader` trait for local files | Any input size reads with bounded memory |
+| Item | Ready? | What | Outcome |
+|---|---|---|---|
+| R-001 | ✅ | Chunked `Reader` trait for local files | Any input size reads with bounded memory |
 
 ### Next
 
-| Item | What | Outcome |
-|---|---|---|
-| R-002 | Drive parser off reader chunks | Peak memory flat as input grows |
+| Item | Ready? | What | Outcome |
+|---|---|---|---|
+| R-002 | ❌ | Drive parser off reader chunks | Peak memory flat as input grows |
 
 ### Later
 
-| Item | What | Outcome |
-|---|---|---|
-| R-003 | Re-enable large-file test suite | Regressions on 2 GB inputs caught in CI |
+| Item | Ready? | What | Outcome |
+|---|---|---|---|
+| R-003 | ❌ | Re-enable large-file test suite | Regressions on 2 GB inputs caught in CI |
 
 **Next up:** R-001 — nothing blocks it.
 ```
+
+**Ready?** is `✅` when the item's **Blocked-by** is empty or names only IDs absent from the
+file, `❌` otherwise — the same test used to name the next item below.
 
 The horizons do most of the orienting work for a reader arriving cold, which is why they
 lead. Someone who has been away for weeks learns the shape of the remaining work from three

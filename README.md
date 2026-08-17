@@ -120,16 +120,16 @@ nobody thinks to save it.
 
 ### `/roadmap:list`
 
-Pending items as one table per horizon — item, what, outcome — with the single next ready
-item named below.
+Pending items as one table per horizon — item, ready?, what, outcome — with the single next
+ready item named below.
 
 ```
 ### Now
-| Item  | What                                   | Outcome                                  |
-| R-001 | Chunked `Reader` trait for local files | Any input size reads with bounded memory |
+| Item  | Ready? | What                                   | Outcome                                  |
+| R-001 | ✅     | Chunked `Reader` trait for local files | Any input size reads with bounded memory |
 
 ### Next
-| R-002 | Drive parser off reader chunks         | Peak memory flat as input grows          |
+| R-002 | ❌     | Drive parser off reader chunks         | Peak memory flat as input grows          |
 
 **Next up:** R-001 — nothing blocks it.
 ```
