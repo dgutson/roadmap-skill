@@ -23,27 +23,19 @@ One table per horizon, in `Now` → `Next` → `Later` order, skipping any that 
 Preserve file order within each — it encodes priority, so each table reads top-down as the
 intended sequence.
 
-```markdown
-### Now
+A heading per horizon (`### Now`, `### Next`, `### Later`), and under each a table whose
+columns are, in order: **Item**, **Ready?**, **What**, **Outcome** — one row per item. So a
+`Now` row carries `R-001` · `✅` · "Chunked `Reader` trait for local files" · "Any input
+size reads with bounded memory", and **Next up:** follows below the tables.
 
-| Item | Ready? | What | Outcome |
-|---|---|---|---|
-| R-001 | ✅ | Chunked `Reader` trait for local files | Any input size reads with bounded memory |
-
-### Next
-
-| Item | Ready? | What | Outcome |
-|---|---|---|---|
-| R-002 | ❌ | Drive parser off reader chunks | Peak memory flat as input grows |
-
-### Later
-
-| Item | Ready? | What | Outcome |
-|---|---|---|---|
-| R-003 | ❌ | Re-enable large-file test suite | Regressions on 2 GB inputs caught in CI |
-
-**Next up:** R-001 — nothing blocks it.
-```
+**That is the table's content, and deliberately not its markup.** How a table should be
+drawn depends on where the reply is read: a terminal refolds a long row and the column
+alignment collapses, which is worst for exactly the wide rows a roadmap produces. Something
+in the environment may already render tables properly, and prescribing pipe-and-dash syntax
+here would override it and hand the reader the broken version instead — that has actually
+happened. So say what the columns hold and leave the drawing to whatever draws tables;
+where nothing does, a plain markdown table remains a fine fallback. An optional renderer,
+never a dependency.
 
 **Ready?** is `✅` when the item's **Blocked-by** is empty or names only IDs absent from the
 file, `❌` otherwise — the same test used to name the next item below.

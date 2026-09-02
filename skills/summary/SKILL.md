@@ -22,16 +22,20 @@ Group items by their **Category** field — across all horizons, since a categor
 doesn't change because part of it was deferred — and emit one row per category, ordered by
 item count descending so the heaviest remaining areas surface first.
 
-```markdown
-| Category | Outcome | Items |
-|---|---|---|
-| Ingest | Arbitrarily large inputs process with bounded memory | 5 |
-| Auth | Sessions survive token rotation without re-login | 3 |
-| Docs | Public API documented well enough to onboard without reading source | 1 |
+A table whose columns are, in order: **Category**, **Outcome**, **Items** — one row per
+category, so a row carries `Ingest` · "Arbitrarily large inputs process with bounded
+memory" · `5`. Then the closing lines, as prose:
 
-**9 items across 3 categories** — Now 2 · Next 3 · Later 4.
-Ingest is concentrated in Now; Docs is entirely Later. The next ready item, R-001, is in *Ingest*.
-```
+> **9 items across 3 categories** — Now 2 · Next 3 · Later 4.
+> Ingest is concentrated in Now; Docs is entirely Later. The next ready item, R-001, is in *Ingest*.
+
+**That is the table's content, and deliberately not its markup.** How a table should be
+drawn depends on where the reply is read: a terminal refolds a long row and the alignment
+collapses, which is worst for the long outcome sentences this view is made of. Something in
+the environment may already render tables properly, and prescribing pipe-and-dash syntax
+here would override it and hand the reader the broken version. So say what the columns hold
+and leave the drawing to whatever draws tables; where nothing does, a plain markdown table
+remains a fine fallback. An optional renderer, never a dependency.
 
 Close with the totals, the horizon distribution, and which category holds the next ready
 item. Note where a category concentrates in one horizon when it's informative — a category
