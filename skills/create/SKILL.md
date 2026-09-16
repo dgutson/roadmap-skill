@@ -67,9 +67,12 @@ If the conversation is thin on concrete work, say so rather than padding.
 
 ## Step 3 — Shape each item
 
-Every item needs an ID, a category, and three prose fields. They do different jobs, so
-resist collapsing them into one another:
+Every item needs an ID, a **title**, a category, and three prose fields. They do different
+jobs, so resist collapsing them into one another:
 
+- **Title** — the one-line form of What, in the item's `###` heading. `/roadmap:list` renders
+  it verbatim, so it has to stand alone: `Chunked \`Reader\` trait for local files`, not `Fix
+  the parser`. Written once, read every time the roadmap is listed.
 - **What** — the change to make, concretely enough that someone could start.
 - **Why** — the problem that makes it worth doing. This is what lets a future reader
   decide whether the item still matters after circumstances change.

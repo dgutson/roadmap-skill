@@ -56,6 +56,12 @@ roadmap's priority decision, so presenting two items as equally next quietly dis
 and hands the choice back to whoever is reading, which is the guesswork this format exists
 to remove.
 
+**Scope "also unblocked" to the next item's own horizon, and name at most five.** Every
+ready item in the file is rarely news: on a roadmap of any size most of `Later` is unblocked
+too, having never been blocked in the first place. Listing it all buries the one item that
+was actually asked for, and pads a short answer with a long one. If the horizon holds more
+than five others, name five and say how many remain.
+
 If **Now** is empty or every item in it is blocked, fall through to `Next`, then `Later` —
 and say that you fell through. That state means the horizons need re-planning, which is a
 planning signal worth surfacing rather than a routine lookup to paper over. If every item
@@ -63,11 +69,21 @@ in the file is blocked, say so plainly and name what they're all waiting on.
 
 ## Keeping the tables readable
 
-Compress **What** and **Outcome** to roughly one line each. The file's prose is written to
-be unambiguous months later; a table is written to be scanned. Shorten by cutting detail,
-never by inventing or overstating — if an item's what and outcome can't be told apart once
-shortened, the item is probably poorly written, and saying so is more useful than rendering
-a row where both columns repeat each other.
+**The What column is the item's `###` heading title, copied verbatim** — not its **What**
+field compressed down. The title is already the one-line form, written deliberately by
+whoever created the item. Re-compressing the What field instead pays, on every single
+listing, to re-derive a sentence that already exists, and rewords the roadmap's own
+vocabulary so the table stops matching the file people search.
+
+Shorten an **Outcome** only if it genuinely runs long, and then by cutting detail, never by
+inventing or overstating.
+
+Say so rather than silently compensating when:
+
+- a row's what and outcome say the same thing — the *item* is badly written, and naming that
+  is more useful than rendering a row whose two columns repeat each other;
+- a title is too vague to scan (`Fix the parser`) — that item needs a better heading. It is
+  fixed by editing the item once, not by re-inferring a title on every listing.
 
 Leave **Why** out entirely. It's the field that justifies keeping an item, which matters
 when pruning the roadmap, not when scanning for the next task.

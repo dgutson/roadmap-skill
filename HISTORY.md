@@ -2,6 +2,10 @@
 
 > Completed roadmap items, newest first.
 
+## 2026-09-16
+
+- **Backport two `list` fixes from the shelved script work; ship 0.3.2** — Not a roadmap item; requested directly. An unreleased 0.4.0 adding `scripts/roadmap.py` was shelved on `wip/0.4.0-script` rather than pushed: it had never run as an installed plugin, and Daniel wanted testing before trusting it. Two of its changes needed no script and were backported to the prose version instead. First, **"also unblocked" was unbounded** — it named every ready item in the file, which an audit measured at 11 of 18 on a synthetic roadmap, burying the one item actually asked for; it is now scoped to the next item's own horizon and capped at five. Second, **the What column now renders the item's `###` title verbatim** rather than compressing the **What** field, which stops the model re-deriving a sentence that already exists on every listing and keeps the table matching the file's own vocabulary; `create` Step 3 gained a paired **Title** rule requiring headings that stand alone, since the column is only as good as the title behind it. Not backported: the two parser bugs the audit found (there is no parser here), the effort-pin restoration (0.3.1 was already correctly `high`/`high` — that regression was 0.4.0's own), and the fallback rewrites. Roadmap-defect reporting was considered and deliberately left out.
+
 ## 2026-08-17
 
 - **Add a `Ready?` column to `/roadmap:list`** — Not a roadmap item; requested directly. Each horizon table now carries `✅`/`❌` per item, computed with the same test that names the next item: **Blocked-by** empty or naming only IDs absent from the file. Makes readiness visible for every row instead of only for the one item named below the tables. Shipped as 0.3.0; the `list` description was left untouched so the pending trigger evals (R-002) still measure the string that is in use.
