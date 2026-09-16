@@ -37,12 +37,19 @@ If `N` is missing or not a positive integer, say so and stop — do not guess a 
 Read `ROADMAP.md`. If it is absent, say so and point the user at `/roadmap:create`; there is
 nothing to split.
 
-Read `PLANS.md` if it exists, and note which team sizes already have a plan. You are either
-adding a new section or replacing the one for this `N` (Step 7).
+Read `PLANS.md` if it exists — but only its **section headings**, to learn which team sizes
+already have a plan. You are either adding a new section or replacing the one for this `N`
+(Step 7).
+
+**Do not read a section's body yet.** If a plan for this `N` already exists, reading it before you
+derive turns your output into an edit of that plan rather than an independent one, and you lose
+the ability to notice it was wrong. The bodies are for Step 7, when you are merging.
 
 ## Step 2 — Build the ownership map
 
-This is the derivation the lanes come from, and it goes in the output.
+This is the derivation the lanes come from, and it goes in the output **once, above the
+sections** (Step 7). It describes the repo and the roadmap, not the team size, so it is shared by
+every plan in the file rather than repeated inside each one.
 
 For each pending item, work out **which files it will touch**. `ROADMAP.md` does not record
 paths, so you have to infer them from the item's What field and then **check the repo**. Open
@@ -58,13 +65,20 @@ Classify every surface:
 
 - **One lane** — a file or tree only one item touches. The easy case.
 - **Additive / globbed** — a directory where each item adds its own file and nothing
-  enumerates them. Near-zero conflict risk, and worth confirming: something that globs a
-  directory usually has a companion document that hand-lists its contents, and that document
-  *is* shared even though the directory is not.
+  enumerates them. Near-zero conflict risk — **and confirm that before you record it**: take one
+  member's filename and grep the whole repo for it. Something that globs a directory usually has a
+  companion document that hand-lists its contents — a README tree, a skill's topic table, an
+  onboarding walkthrough — and that document *is* shared even though the directory is not. Record
+  both facts, because they belong to different lanes.
 - **Shared** — two or more items edit the same file. These are what the lane split has to
   separate, or the protocol has to cover.
 - **Shared and generated** — a build artifact or manifest. Never merged; regenerated.
 - **Own tree** — an empty or stub directory. Whoever takes it gets no merge at all.
+
+**When an item's cited path does not resolve, say so.** A roadmap records paths in prose and the
+code moves underneath it. If an item names a file, function or line that is not where it says, note
+it under **What to watch** (Step 6) — a stale path is exactly what sends an item to the wrong lane,
+and the person who takes that item will go looking where the roadmap told them to.
 
 Render this as a table: **Surface | Items | Conflict risk**.
 
@@ -76,6 +90,11 @@ Group surfaces so that lanes share as few files as possible. Then reconcile that
 that number first — it is the number of groups you can draw with no shared files between them
 — and only then look at how many people there are.
 
+**Report that number; do not necessarily draw it.** "This roadmap supports five lanes" is a finding
+worth stating, and it belongs in the ownership map. The grid is a different thing: it is what people
+read to know what they are doing, so it gets **`min(N, lanes)` columns**. A column nobody owns alone
+asks the reader to hold a distinction that changes nothing about their day.
+
 The four cases:
 
 **`N` equals the number of lanes.** One person per lane. Nothing more to do.
@@ -83,9 +102,14 @@ The four cases:
 **`N` is smaller than the number of lanes** (`/roadmap:plan 2 Core,Docs,Tests`). One person
 holds more than one lane. This creates no merge conflict — nobody collides with themselves —
 but their lanes run **serially**, not in parallel, so the waves for the lanes they hold
-interleave rather than advance together. Say which lanes are held together and that their
-waves are sequential. Give a person lanes that are near each other in subject matter, so the
-context switch is cheap, and never split a lane across two people just to even out the counts.
+interleave rather than advance together.
+
+**Merge those lanes into `N` holdings, and make the holdings the grid's columns.** A holding is a
+conflict unit for the same reason a lane is — it has one owner — so the grid stays a map of what
+cannot collide. Name each holding for what it covers and list the lanes inside it in its
+description, so the finer split survives where it is useful. Say which lanes are held together and
+that their waves are sequential. Give a person lanes that are near each other in subject matter, so
+the context switch is cheap, and never split a lane across two people just to even out the counts.
 
 **`N` is larger than the number of lanes** (`/roadmap:plan 3 Core,Tests`). This is the one
 that goes wrong quietly. Two people in one lane are **not** protected by the lane — it was
@@ -138,15 +162,24 @@ own priority decision.
 
 ## Step 6 — Write the grid
 
-The grid is the output. Rows are waves, columns are lanes:
+The grid is the output. Rows are waves; columns are the **conflict units** Step 3 settled on —
+the lanes, or the holdings those lanes were merged into when `N` was smaller than the lane count:
 
 | Wave | A — Core runtime | B — Detection content | C — Integration & test |
 |---|---|---|---|
 
 A cell holds the item IDs that lane takes in that wave and a few words on each, or is empty.
+
+**Every item has exactly one owning cell.** When its owner's work reaches into another lane, write
+the item in the owning cell as normal and put a parenthetical in the touched lane's cell — `(R-034
+step 3 lands here; owned by A)` — so the grid never shows one ID as two assignments. A paired item
+works the same way: one owning cell, the partner named in the parenthetical. An ID appearing twice
+as an assignment contradicts Step 4 and leaves the item with nobody who can remove it.
+
 Above the grid, name the lanes with their descriptions and owned paths, and give the
 **staffing line**: which person holds which lane. Keep people and lanes visibly separate —
-columns are lanes, because lanes are what prevent conflicts; staffing is a mapping onto them.
+a column is whatever prevents a conflict — a lane, or a holding of several — and staffing is a
+mapping onto those columns, which is the identity mapping once lanes have been merged to fit `N`.
 
 **That is the grid's content, and deliberately not its markup.** How a table should be drawn
 depends on where the reply is read, and something in the environment may already render tables
@@ -157,8 +190,11 @@ Below the grid, add only what is real:
 
 - **The crossings.** Every item that touches a file outside its lane. Name the file and the
   rule — who announces what to whom.
-- **Cross-lane interfaces.** Where two lanes meet at a data shape or a function, pin it here
-  so it does not need a meeting. If it truly needs one, say that instead.
+- **Cross-lane interfaces.** Where two lanes meet at a data shape or a function, pin it so it
+  does not need a meeting. If it truly needs one, say that instead. **An interface the repo's own
+  code already pins is a property of the repo, not of this `N`** — that goes once, above the
+  sections, beside the ownership map. Only the part that depends on this split — who announces what
+  to whom, which lane owns the shared function — belongs under this grid.
 - **What to watch.** An item whose title suggests one lane but whose files are in another is
   worth calling out by name; that is the misassignment a reader would otherwise make.
 
@@ -167,13 +203,21 @@ Below the grid, add only what is real:
 `PLANS.md` holds **one section per team size**, ordered by size ascending, each headed
 `## N members` and carrying the date it was written or last updated.
 
+**Match an existing section by the number it names, not by how that number is spelled.**
+`## 3 members`, `## Three members` and `## 3 people` are all the plan for `N` = 3, and treating a
+different spelling as a different size puts two plans for one team into a file whose entire
+contract is one section per size. Reuse the spelling already in the file rather than renaming it;
+write `## N members` only when you are adding a size that is not there.
+
 - **No plan for this `N`** — add the section, dated today.
 - **A plan for this `N` exists** — replace that section wholesale and stamp today's date.
   Leave every other section untouched: they are plans for other team sizes, not stale copies
   of this one.
 
-The **shared-file protocol** and the header are shared by all sections; write them once and
-update them if this run changes them.
+The **header**, the **ownership map**, the **repo-pinned cross-lane interfaces** and the
+**shared-file protocol** are shared by all sections; write them once, above the sections, and
+update them if this run changes them. None of them depends on the team size, and a copy inside
+each section is a copy that will disagree with the others.
 
 **This file is only ever written by this command.** It does not track `ROADMAP.md`, and
 nothing re-syncs it when the roadmap changes. So record, in each section, **the date and the

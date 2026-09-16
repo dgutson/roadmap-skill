@@ -1,7 +1,7 @@
 {
   "name": "roadmap",
   "description": "Keep a repo's pending work in a slim, dependency-ordered ROADMAP.md, retire finished work to HISTORY.md, and split what remains across a team into lanes that do not collide, so Claude can always pick the next thing to build.",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": {
     "name": "Daniel Gutson"
   }
