@@ -2,7 +2,8 @@
 
 A Claude Code plugin that keeps a repo's pending work in a slim, dependency-ordered
 `ROADMAP.md` and retires finished work to `HISTORY.md`, so a new session can pick the
-work back up by reading one short file.
+work back up by reading one short file — and splits that work across a team into lanes
+that do not collide.
 
 ## The problem
 
@@ -158,6 +159,44 @@ once the whole category is done.
 
 Both `list` and `summary` are strictly read-only. Asking to see the work never mutates the
 file.
+
+### `/roadmap:plan N [lanes]`
+
+Splits the pending work across a team into **lanes** — sets of file surfaces with an owner —
+and writes the result to `PLANS.md` as a wave-by-lane grid. `N` is the number of *people*,
+not the number of lanes.
+
+```
+/roadmap:plan 3                  three people, lanes derived from the roadmap
+/roadmap:plan 3 Core,Docs,Tests  three people, three named lanes
+/roadmap:plan 3 Core,Tests       three people, two lanes — one gets sub-divided or paired
+/roadmap:plan 2 Core,Docs,Tests  two people, three lanes — someone holds two, serially
+```
+
+The lane is the unit that prevents conflicts, so lanes are drawn around *paths* and the item
+assignment falls out of that. The plan is derived from an ownership map — which items touch
+which files, and whether each surface is exclusive, additive, shared or generated — and that
+map is part of the output, so the reasoning can be checked rather than taken on faith.
+
+```
+| Wave | A — Core runtime          | B — Detection content | C — Integration & test |
+|------|---------------------------|-----------------------|------------------------|
+| 1    | R-034 input-shape readiness | R-004 intro shelves | R-011 property tests   |
+| 2    | R-008 auditor               | R-005 network shelf | R-012 kill drill       |
+```
+
+Items blocked by others land in strictly later waves, and a **Blocked-by** that crosses lanes
+is scheduled rather than left to be negotiated. A wave is a dependency order, not a schedule —
+there are no dates or estimates in it.
+
+If the work does not parallelise as far as you asked, it says so: "you asked for 5, this
+roadmap supports 3, and here is the file that is the reason" is a real finding, and more
+useful than a plan that pretends otherwise.
+
+`PLANS.md` holds one section per team size, so `/roadmap:plan 2` and `/roadmap:plan 3` coexist
+and re-running either replaces only its own section, re-dated. **Nothing re-syncs it when the
+roadmap changes** — each section records the date and the item IDs it covers so drift is
+visible, and refreshing it means running the command again.
 
 ## Install
 

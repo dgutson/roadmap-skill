@@ -1,30 +1,22 @@
 # roadmap-skill
 
-A Claude Code plugin providing `/roadmap:create`, `/roadmap:list`, and `/roadmap:summary`.
+A Claude Code plugin providing `/roadmap:create`, `/roadmap:list`, `/roadmap:summary`, and
+`/roadmap:plan`.
 
-## Hard constraint: no executable code
+## What this plugin ships
 
-This plugin ships **three `SKILL.md` files and two JSON manifests. Nothing else.** No
-scripts, no hooks, no MCP servers, no `scripts/` directory, no executable of any kind, in
-any language, at any size, however convenient.
+Four `SKILL.md` files and two JSON manifests. Skills are discovered from `skills/<name>/`,
+so a new command is a new directory with a `SKILL.md` in it and nothing else to register.
 
-Do not add code here on your own judgement — not "just a small helper", not "only for
-tests", not because a script would be more reliable than prose instructions. If you believe
-code is genuinely required, stop and ask Daniel for explicit approval, and proceed only if
-he gives it. He set this constraint deliberately and has had to restate it.
+There used to be a hard constraint here forbidding executable code of any kind. Daniel
+retired it in September 2026 as anachronistic. Judgement about what belongs in this repo is
+ordinary engineering judgement now, not a standing rule — but note that three of the four
+skills are prose because their input is a conversation or a judgement call, not because a
+rule forbade the alternative. Reach for a script when there is mechanical work to move off
+the model, not by default.
 
-The reasons, so this reads as a design property rather than an arbitrary rule:
-
-- **It cannot fail at runtime.** There is no process to crash, no dependency to go missing,
-  no interpreter version to be wrong. The failure modes of a markdown file are exhaustively
-  "someone wrote bad instructions".
-- **It installs anywhere** — no network, no auth, no toolchain, no permission prompts.
-- **It stays auditable by reading it.** Anyone can review the whole plugin in ten minutes
-  and know exactly what it will do to their repo.
-
-Using an external tool during development is a different thing from vendoring one. `git`,
-`gh`, and skill-creator's eval scripts all get invoked from their own locations, and that is
-fine. Nothing they produce is committed here except markdown.
+Using an external tool during development is still a different thing from vendoring one.
+`git`, `gh`, and skill-creator's eval scripts all get invoked from their own locations.
 
 ## Roadmap
 

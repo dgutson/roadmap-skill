@@ -9,7 +9,7 @@
     {
       "name": "roadmap",
       "source": ".",
-      "description": "Keeps a repo's pending work in a slim, dependency-ordered ROADMAP.md and retires finished work to HISTORY.md, so Claude Code can always pick the next thing to build without guessing."
+      "description": "Keeps a repo's pending work in a slim, dependency-ordered ROADMAP.md, retires finished work to HISTORY.md, and splits what remains across a team into non-colliding lanes, so Claude Code can always pick the next thing to build without guessing."
     }
   ]
 }
